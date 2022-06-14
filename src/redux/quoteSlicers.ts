@@ -9,7 +9,7 @@ interface RootState {
     }>
 }
 
-// Quote
+// Normal slice without createAction and createReducer
 export const quoteCommander = createSlice({
     name: 'quoteCommander',
     initialState: {

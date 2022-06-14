@@ -6,14 +6,22 @@ import {quoteCommander} from "./redux/quoteSlicers";
 import {useEffect} from "react";
 import {store} from "./redux/store";
 import {useState} from "react";
+import {author} from "./redux/actions";
 
-function App() {
+const App: React.FC = () => {
     const currentState = useAppSelector(state => state); // TODO
     const [currentText, setCurrentText] = useState("");
+    const appDispatch = useAppDispatch();
+
 
     useEffect(() => {
         console.log("Current state: ", currentState);
     }, [currentState]);
+
+    const testFunction = () => {
+        appDispatch(author("OleDoleDoffen"));
+        console.log("Current state: ", currentState);
+    }
 
     return (
         <div className="App">
@@ -35,11 +43,18 @@ function App() {
                     <button onClick={() => setCurrentText("")}>
                         Clear field
                     </button>
+
+                    <button onClick={() => {
+                        console.log("test");
+                        return testFunction();
+                    }}>
+                        Test button
+                    </button>
                 </section>
 
                 <section className="content">
-                    {store.getState().quote.quotes.map(q => {
-                        return <Quote text={q.quote} id={q.id} />
+                    {store.getState().quote.quotes.map((q, key) => {
+                        return <Quote text={q.quote} id={q.id} key={key} />
                     })}
                 </section>
             </main>
